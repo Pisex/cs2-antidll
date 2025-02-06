@@ -137,6 +137,7 @@ void AntiDLL::AllPluginsLoaded()
 	g_pUtils->CreateTimer(g_flInterval, [](){
 		for (int i = 0; i < 64; i++)
 		{
+			if(g_pPlayers->IsFakeClient(i)) continue;
 			if(g_bPunished[i]) continue;
 			IGameEventListener2* pListener = g_pPlayers->GetLegacyGameEventListener(i);
 			if(!pListener) continue;
@@ -186,7 +187,7 @@ const char* AntiDLL::GetLicense()
 
 const char* AntiDLL::GetVersion()
 {
-	return "1.0";
+	return "1.0.1";
 }
 
 const char* AntiDLL::GetDate()
