@@ -138,6 +138,8 @@ void AntiDLL::AllPluginsLoaded()
 		for (int i = 0; i < 64; i++)
 		{
 			if(g_pPlayers->IsFakeClient(i)) continue;
+			uint64 iSteamID64 = g_pPlayers->GetSteamID64(i);
+			if(iSteamID64 == 0) continue;
 			if(g_bPunished[i]) continue;
 			IGameEventListener2* pListener = g_pPlayers->GetLegacyGameEventListener(i);
 			if(!pListener) continue;
@@ -148,7 +150,7 @@ void AntiDLL::AllPluginsLoaded()
 					g_bPunished[i] = true;
 					const char* szName = g_pPlayers->GetPlayerName(i);
 					char szSteamID64[64];
-					g_SMAPI->Format(szSteamID64, sizeof(szSteamID64), "%llu", g_pPlayers->GetSteamID64(i));
+					g_SMAPI->Format(szSteamID64, sizeof(szSteamID64), "%llu", iSteamID64);
 
 					if(g_bLogs)
 						g_pUtils->LogToFile("AntiDLL", "Player %s(%s) is using event %s\n", szName, szSteamID64, event.c_str());
@@ -187,7 +189,7 @@ const char* AntiDLL::GetLicense()
 
 const char* AntiDLL::GetVersion()
 {
-	return "1.0.1";
+	return "1.0.2";
 }
 
 const char* AntiDLL::GetDate()
