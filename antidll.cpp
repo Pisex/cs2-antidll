@@ -24,11 +24,6 @@ float g_flInterval;
 
 bool g_bPunished[64];
 
-CGameEntitySystem* GameEntitySystem()
-{
-	return g_pUtils->GetCGameEntitySystem();
-}
-
 void StartupServer()
 {
 	g_pGameEntitySystem = GameEntitySystem();
@@ -44,6 +39,7 @@ bool AntiDLL::Load(PluginId id, ISmmAPI* ismm, char* error, size_t maxlen, bool 
 	GET_V_IFACE_ANY(GetEngineFactory, g_pSchemaSystem, ISchemaSystem, SCHEMASYSTEM_INTERFACE_VERSION);
 	GET_V_IFACE_CURRENT(GetEngineFactory, engine, IVEngineServer2, SOURCE2ENGINETOSERVER_INTERFACE_VERSION);
 	GET_V_IFACE_CURRENT(GetFileSystemFactory, g_pFullFileSystem, IFileSystem, FILESYSTEM_INTERFACE_VERSION);
+	GET_V_IFACE_CURRENT(GetEngineFactory, g_pGameResourceServiceServer, IGameResourceService, GAMERESOURCESERVICESERVER_INTERFACE_VERSION);
 
 	g_SMAPI->AddListener( this, this );
 
